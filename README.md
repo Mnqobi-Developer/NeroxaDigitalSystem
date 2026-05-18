@@ -1,7 +1,22 @@
 # NeroxaDigitalSystem
 
-Business website repository for Neroxa Digital System.
+Business website repository for Nexora Digital Systems.
 
-## Status
+## Tech Stack
 
-Initial repository setup.
+- TypeScript
+- Vanilla HTML/CSS
+- Vite
+
+## Development
+
+```bash
+npm install
+npm run dev
+```
+
+## Production Build
+
+```bash
+npm run build
+```
