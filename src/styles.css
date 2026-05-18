@@ -660,11 +660,13 @@ blockquote {
   margin-bottom: 3.6rem;
 }
 
-.person span {
+.person img {
   width: 3.6rem;
   height: 3.6rem;
   border-radius: 50%;
-  background: linear-gradient(135deg, #ff6d2b, #ffbf31);
+  background: #f8f7f2;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  object-fit: cover;
 }
 
 .person p {

@@ -25,6 +25,14 @@ type Industry = {
 };
 
 const navItems = ["Platforms", "Infrastructure", "Industries", "Customers", "Company"];
+const siteUrl = "https://nexora.africa";
+const defaultSeo = {
+  title: "Nexora Digital Systems | Website, Ecommerce, Payments & Digital Infrastructure",
+  description:
+    "Nexora Digital Systems builds websites, ecommerce platforms, payment systems, hosting, digital infrastructure and growth tools for African businesses.",
+  url: `${siteUrl}/`,
+  image: `${siteUrl}/assets/hero-section-bg.jpg`,
+};
 
 const products: Product[] = [
   {
@@ -263,6 +271,27 @@ const serviceOptions = [
   "Not sure yet",
 ];
 
+function setMeta(selector: string, value: string) {
+  const tag = document.head.querySelector<HTMLMetaElement>(selector);
+  if (tag) tag.content = value;
+}
+
+function setCanonical(url: string) {
+  const canonical = document.head.querySelector<HTMLLinkElement>('link[rel="canonical"]');
+  if (canonical) canonical.href = url;
+}
+
+function setPageSeo(title: string, description: string, url = defaultSeo.url) {
+  document.title = title;
+  setMeta('meta[name="description"]', description);
+  setMeta('meta[property="og:title"]', title);
+  setMeta('meta[property="og:description"]', description);
+  setMeta('meta[property="og:url"]', url);
+  setMeta('meta[name="twitter:title"]', title);
+  setMeta('meta[name="twitter:description"]', description);
+  setCanonical(url);
+}
+
 function header() {
   return `
     <header class="site-header">
@@ -274,9 +303,9 @@ function header() {
         <span></span>
       </button>
       <nav id="primary-navigation" aria-label="Primary navigation">
-        ${navItems.map((item) => `<a href="#${item.toLowerCase()}">${item}</a>`).join("")}
+        ${navItems.map((item) => `<a href="/#${item.toLowerCase()}">${item}</a>`).join("")}
       </nav>
-      <a class="button button-primary button-small" href="#contact">Talk to sales <span>-></span></a>
+      <a class="button button-primary button-small" href="/#contact">Talk to sales <span>-></span></a>
     </header>
   `;
 }
@@ -336,7 +365,7 @@ function productCard(product: Product) {
         <h3>${product.name}</h3>
         <p>${product.copy}</p>
       </div>
-      <a href="#platform/${product.slug}">Explore ${product.name} <span>-></span></a>
+      <a href="/platform/${product.slug}">Explore ${product.name} <span>-></span></a>
     </article>
   `;
 }
@@ -389,7 +418,7 @@ function renderProductPage(product: Product, details: ProductPage) {
     <main id="top" class="product-page">
       <section class="product-hero section-grid">
         <div class="section-inner product-hero-inner">
-          <a class="back-link" href="#platforms"><span>&larr;</span> Back to Nexora</a>
+          <a class="back-link" href="/#platforms"><span>&larr;</span> Back to Nexora</a>
           <p class="product-kicker"><span>${product.eyebrow}</span>${product.metric}</p>
           <h1>${product.name}</h1>
           <h2>${details.tagline}</h2>
@@ -466,7 +495,7 @@ function renderProductPage(product: Product, details: ProductPage) {
             ${related
               .map(
                 (item) => `
-                  <a href="#platform/${item.slug}">
+                  <a href="/platform/${item.slug}">
                     <span>${item.eyebrow}</span>
                     <strong>${item.name}</strong>
                     <small>Explore -></small>
@@ -562,22 +591,46 @@ function setupMobileMenu() {
   });
 }
 
+function setupInternalLinks() {
+  document.querySelectorAll<HTMLAnchorElement>('a[href^="/"]').forEach((link) => {
+    link.addEventListener("click", (event) => {
+      const href = link.getAttribute("href");
+      if (!href || link.target) return;
+
+      const url = new URL(href, window.location.origin);
+      if (url.origin !== window.location.origin) return;
+
+      event.preventDefault();
+      window.history.pushState({}, "", `${url.pathname}${url.hash}`);
+      render();
+    });
+  });
+}
+
 function render() {
   const app = document.querySelector<HTMLDivElement>("#app");
   if (!app) return;
 
-  const match = window.location.hash.match(/^#platform\/([a-z0-9-]+)$/);
+  const match = window.location.pathname.match(/^\/platform\/([a-z0-9-]+)\/?$/) ?? window.location.hash.match(/^#platform\/([a-z0-9-]+)$/);
   if (match) {
     const product = products.find((item) => item.slug === match[1]);
     const details = product ? productPages[product.slug] : undefined;
     if (product && details) {
+      setPageSeo(
+        `${product.name} | ${details.tagline} | Nexora Digital Systems`,
+        `${product.name} by Nexora Digital Systems: ${details.tagline} ${product.copy}`,
+        `${siteUrl}/platform/${product.slug}`,
+      );
       app.innerHTML = renderProductPage(product, details);
       setupMobileMenu();
+      setupInternalLinks();
       setupContactForms();
       window.scrollTo({ top: 0, behavior: "auto" });
       return;
     }
   }
+
+  setPageSeo(defaultSeo.title, defaultSeo.description, defaultSeo.url);
 
   app.innerHTML = `
     ${header()}
@@ -672,14 +725,14 @@ function render() {
           <div class="story-left">
             <p class="section-code">// 04 - Customer story</p>
             <h2>Khanyisile Ndlovu launched her psychology practice online in <em>9 days.</em></h2>
-            <a href="#contact">Visit kndlovu-psychology.co.za <span>-></span></a>
+            <a href="https://kndlovu-psychology.co.za/" target="_blank" rel="noreferrer">Visit kndlovu-psychology.co.za <span>-></span></a>
           </div>
           <div class="quote-block">
             <blockquote>
               "Nexora built me a website that actually feels like my practice - calm, considered and easy for clients to navigate. Bookings now come straight through the site, and I finally have a digital home that reflects the care I offer in the room."
             </blockquote>
             <div class="person">
-              <span></span>
+              <img src="/assets/kn-logo.jpeg" alt="Khanyisile Ndlovu Psychology logo" />
               <p><strong>Khanyisile Ndlovu</strong>Psychologist - Mulbarton, Johannesburg</p>
             </div>
             <dl class="story-stats">
@@ -738,8 +791,13 @@ function render() {
     </footer>
   `;
   setupMobileMenu();
+  setupInternalLinks();
   setupContactForms();
+  if (window.location.hash) {
+    window.requestAnimationFrame(() => document.querySelector(window.location.hash)?.scrollIntoView());
+  }
 }
 
 render();
 window.addEventListener("hashchange", render);
+window.addEventListener("popstate", render);
