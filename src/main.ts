@@ -24,6 +24,14 @@ type Industry = {
   className: string;
 };
 
+type InfoPage = {
+  title: string;
+  eyebrow: string;
+  intro: string;
+  points: string[];
+  includeContactForm?: boolean;
+};
+
 const navItems = ["Platforms", "Infrastructure", "Industries", "Customers", "Company"];
 const siteUrl = "https://nexora.africa";
 const defaultSeo = {
@@ -260,6 +268,139 @@ const footerColumns = [
   ["Resources", "Documentation", "API reference", "Status", "Changelog", "Blog", "Partners"],
 ];
 
+const industryPages: Record<string, InfoPage> = {
+  retail: {
+    title: "Retail & Fashion",
+    eyebrow: "Industry",
+    intro: "Digital storefronts, payments and customer systems for boutiques, fashion labels and retail operators.",
+    points: ["Mobile-first commerce", "Inventory and local delivery flows", "Customer records and repeat purchase campaigns"],
+  },
+  faith: {
+    title: "Faith & Community",
+    eyebrow: "Industry",
+    intro: "Member, giving, livestream and care systems for churches and community organisations.",
+    points: ["Congregation directories", "Tithing and giving", "Pastoral care and volunteer coordination"],
+  },
+  sport: {
+    title: "Sport & Leisure",
+    eyebrow: "Industry",
+    intro: "Fixtures, registrations, ticketing and statistics for clubs, schools and community leagues.",
+    points: ["League schedules", "Player registrations", "Match-day ticketing and sponsor reporting"],
+  },
+  tourism: {
+    title: "Tourism & Hospitality",
+    eyebrow: "Industry",
+    intro: "Booking, payment and customer experience systems for tourism operators and hospitality venues.",
+    points: ["Direct booking flows", "Local payment rails", "Guest communication and remarketing"],
+  },
+  entertainment: {
+    title: "Entertainment",
+    eyebrow: "Industry",
+    intro: "Digital ticketing, creator pages and campaign tools for venues, events and entertainment brands.",
+    points: ["Event landing pages", "Ticketing and access lists", "Audience growth analytics"],
+  },
+  education: {
+    title: "Education",
+    eyebrow: "Industry",
+    intro: "Websites, portals and payment systems for schools, colleges and training institutions.",
+    points: ["Institution websites", "Applications and enrolment forms", "Fees, events and parent communication"],
+  },
+};
+
+const staticPages: Record<string, InfoPage> = {
+  "/company/about": {
+    title: "About Nexora",
+    eyebrow: "Company",
+    intro: "Nexora Digital Systems builds the websites, platforms, payments and infrastructure African businesses run on.",
+    points: ["Built locally for African operating conditions", "One stack across commerce, hosting, payments and growth", "Human support from South African teams"],
+  },
+  "/company/careers": {
+    title: "Careers",
+    eyebrow: "Company",
+    intro: "Join the team building practical digital infrastructure for ambitious African operators.",
+    points: ["Engineering", "Design and implementation", "Customer strategy and support"],
+  },
+  "/company/press": {
+    title: "Press",
+    eyebrow: "Company",
+    intro: "Company information, product updates and media resources for Nexora Digital Systems.",
+    points: ["Platform launches", "Customer stories", "Regional infrastructure updates"],
+  },
+  "/company/investors": {
+    title: "Investors",
+    eyebrow: "Company",
+    intro: "Nexora is building an operating layer for African commerce, organisations and customer systems.",
+    points: ["Commerce infrastructure", "Local payment rails", "Regional hosting and growth tooling"],
+  },
+  "/company/trust-and-security": {
+    title: "Trust & Security",
+    eyebrow: "Company",
+    intro: "Security, privacy and uptime practices are included in the Nexora platform foundation.",
+    points: ["POPIA-aware customer data workflows", "Access controls and audit logs", "Monitoring, backups and uptime reporting"],
+  },
+  "/company/contact": {
+    title: "Contact Nexora",
+    eyebrow: "Company",
+    intro: "Tell us what service you need and the right Nexora specialist will pick up the conversation.",
+    points: ["Website and ecommerce builds", "Payments, hosting and infrastructure", "Platform strategy, support and growth systems"],
+    includeContactForm: true,
+  },
+  "/resources/documentation": {
+    title: "Documentation",
+    eyebrow: "Resources",
+    intro: "Guides for launching, managing and growing on the Nexora platform suite.",
+    points: ["Platform setup guides", "Payment and hosting documentation", "Operational playbooks for teams"],
+  },
+  "/resources/api-reference": {
+    title: "API Reference",
+    eyebrow: "Resources",
+    intro: "Technical reference for connecting Nexora products with customer systems, storefronts and reporting tools.",
+    points: ["Payments and checkout endpoints", "Customer and order data", "Webhooks and integrations"],
+  },
+  "/resources/status": {
+    title: "Platform Status",
+    eyebrow: "Resources",
+    intro: "Current operating posture for Nexora infrastructure and regional services.",
+    points: ["Johannesburg, Cape Town and Durban regions", "Regional CDN monitoring", "Last 90 days uptime reporting"],
+  },
+  "/resources/changelog": {
+    title: "Changelog",
+    eyebrow: "Resources",
+    intro: "Product improvements, infrastructure changes and platform releases across Nexora.",
+    points: ["Nexora Platform 7.0 availability", "Improved mobile checkout flows", "Expanded regional hosting coverage"],
+  },
+  "/resources/blog": {
+    title: "Blog",
+    eyebrow: "Resources",
+    intro: "Notes on technology development, ecommerce, payments, hosting and digital operations for African businesses.",
+    points: ["Website development strategy", "Local payment operations", "Growth and customer system design"],
+  },
+  "/resources/partners": {
+    title: "Partners",
+    eyebrow: "Resources",
+    intro: "Work with Nexora to deliver websites, commerce platforms, hosting and growth systems to more operators.",
+    points: ["Implementation partners", "Agency collaborations", "Infrastructure and payment partners"],
+  },
+  "/legal/privacy": {
+    title: "Privacy",
+    eyebrow: "Legal",
+    intro: "How Nexora thinks about responsible handling of customer, business and platform data.",
+    points: ["Only collect data needed to operate the service", "Use access controls and audit trails", "Support privacy-conscious workflows"],
+  },
+  "/legal/terms": {
+    title: "Terms",
+    eyebrow: "Legal",
+    intro: "General terms for using Nexora websites, platforms and digital services.",
+    points: ["Service scope is agreed per project", "Operational responsibilities are clearly defined", "Support and maintenance terms are documented"],
+  },
+  "/legal/popia": {
+    title: "POPIA",
+    eyebrow: "Legal",
+    intro: "Nexora designs customer data workflows with South African privacy obligations in mind.",
+    points: ["Consent-aware forms", "Role-based access", "Audit logs and data handling discipline"],
+  },
+};
+
 const serviceOptions = [
   "NexShop - commerce website",
   "NexPay - payments",
@@ -290,6 +431,22 @@ function setPageSeo(title: string, description: string, url = defaultSeo.url) {
   setMeta('meta[name="twitter:title"]', title);
   setMeta('meta[name="twitter:description"]', description);
   setCanonical(url);
+}
+
+function slugify(value: string) {
+  return value.toLowerCase().replace(/&/g, "and").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+}
+
+function footerHref(section: string, label: string) {
+  const slug = slugify(label);
+  if (section === "Platforms") {
+    const product = products.find((item) => item.name.toLowerCase() === label.toLowerCase());
+    return product ? `/platform/${product.slug}` : "/";
+  }
+  if (section === "Industries") return `/industry/${slug}`;
+  if (section === "Company") return `/company/${slug}`;
+  if (section === "Resources") return `/resources/${slug}`;
+  return "/";
 }
 
 function header() {
@@ -396,7 +553,7 @@ function siteFooter() {
             ([heading, ...links]) => `
               <div class="footer-col">
                 <h3>${heading}</h3>
-                ${links.map((link) => `<a href="#top">${link}</a>`).join("")}
+                ${links.map((link) => `<a href="${footerHref(heading, link)}">${link}</a>`).join("")}
               </div>
             `,
           )
@@ -404,7 +561,7 @@ function siteFooter() {
       </div>
       <div class="section-inner legal">
         <span>&copy; 2026 Nexora Digital Holdings (Pty) Ltd. All rights reserved.</span>
-        <p><a href="#top">Privacy</a><a href="#top">Terms</a><a href="#top">POPIA</a><span><i></i>All systems normal</span></p>
+        <p><a href="/legal/privacy">Privacy</a><a href="/legal/terms">Terms</a><a href="/legal/popia">POPIA</a><span><i></i>All systems normal</span></p>
       </div>
     </footer>
   `;
@@ -533,6 +690,60 @@ function renderProductPage(product: Product, details: ProductPage) {
   `;
 }
 
+function renderInfoPage(page: InfoPage) {
+  return `
+    ${header()}
+    <main id="top" class="info-page">
+      <section class="info-hero section-grid">
+        <div class="section-inner product-hero-inner">
+          <a class="back-link" href="/"><span>&larr;</span> Back to Nexora</a>
+          <p class="product-kicker"><span>${page.eyebrow}</span>Nexora Digital Systems</p>
+          <h1>${page.title}</h1>
+          <h2>${page.intro}</h2>
+          <div class="actions">
+            <a class="button button-primary" href="/#contact">Talk to sales <span>-></span></a>
+            <a class="button button-secondary" href="/#platforms">Explore platforms</a>
+          </div>
+        </div>
+      </section>
+      <section class="product-features">
+        <div class="section-inner">
+          <p class="section-code">// Overview</p>
+          <h2>What this covers.</h2>
+          <div class="feature-grid info-grid">
+            ${page.points
+              .map(
+                (point, index) => `
+                  <article>
+                    <span>${String(index + 1).padStart(2, "0")}</span>
+                    <h3>${point}</h3>
+                    <p>${page.title} connects into the broader Nexora platform across websites, commerce, payments, hosting and customer systems.</p>
+                  </article>
+                `,
+              )
+              .join("")}
+          </div>
+        </div>
+      </section>
+      <section class="product-talk">
+        <div class="section-inner talk-panel">
+          <div>
+            <p class="section-code">// Next step</p>
+            <h2>Need this for your business?</h2>
+            <p>Tell us what you are building and we will route your request to the right Nexora team.</p>
+          </div>
+          <div class="talk-actions">
+            <a class="button button-primary" href="/#contact">Contact Nexora <span>-></span></a>
+            <a class="button button-secondary" href="/">Return home</a>
+          </div>
+        </div>
+      </section>
+      ${page.includeContactForm ? `<section class="cta"><div class="section-inner cta-inner">${contactForm()}</div></section>` : ""}
+    </main>
+    ${siteFooter()}
+  `;
+}
+
 function setupContactForms() {
   document.querySelectorAll<HTMLFormElement>("[data-contact-form]").forEach((form) => {
     form.addEventListener("submit", (event) => {
@@ -628,6 +839,38 @@ function render() {
       window.scrollTo({ top: 0, behavior: "auto" });
       return;
     }
+  }
+
+  const industryMatch = window.location.pathname.match(/^\/industry\/([a-z0-9-]+)\/?$/);
+  if (industryMatch) {
+    const page = industryPages[industryMatch[1]];
+    if (page) {
+      setPageSeo(
+        `${page.title} Digital Systems | Nexora Digital Systems`,
+        `${page.title} technology development, websites, payments and customer systems from Nexora Digital Systems. ${page.intro}`,
+        `${siteUrl}/industry/${industryMatch[1]}`,
+      );
+      app.innerHTML = renderInfoPage(page);
+      setupMobileMenu();
+      setupInternalLinks();
+      window.scrollTo({ top: 0, behavior: "auto" });
+      return;
+    }
+  }
+
+  const normalizedPath = window.location.pathname.replace(/\/$/, "") || "/";
+  const staticPage = staticPages[normalizedPath];
+  if (staticPage) {
+    setPageSeo(
+      `${staticPage.title} | Nexora Digital Systems`,
+      `${staticPage.intro} Nexora builds website development, ecommerce, payments, hosting and digital infrastructure for African businesses.`,
+      `${siteUrl}${normalizedPath}`,
+    );
+    app.innerHTML = renderInfoPage(staticPage);
+    setupMobileMenu();
+    setupInternalLinks();
+    window.scrollTo({ top: 0, behavior: "auto" });
+    return;
   }
 
   setPageSeo(defaultSeo.title, defaultSeo.description, defaultSeo.url);
@@ -778,7 +1021,7 @@ function render() {
             ([heading, ...links]) => `
               <div class="footer-col">
                 <h3>${heading}</h3>
-                ${links.map((link) => `<a href="#top">${link}</a>`).join("")}
+                ${links.map((link) => `<a href="${footerHref(heading, link)}">${link}</a>`).join("")}
               </div>
             `,
           )
@@ -786,7 +1029,7 @@ function render() {
       </div>
       <div class="section-inner legal">
         <span>&copy; 2026 Nexora Digital Holdings (Pty) Ltd. All rights reserved.</span>
-        <p><a href="#top">Privacy</a><a href="#top">Terms</a><a href="#top">POPIA</a><span><i></i>All systems normal</span></p>
+        <p><a href="/legal/privacy">Privacy</a><a href="/legal/terms">Terms</a><a href="/legal/popia">POPIA</a><span><i></i>All systems normal</span></p>
       </div>
     </footer>
   `;

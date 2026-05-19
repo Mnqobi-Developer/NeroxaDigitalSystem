@@ -931,11 +931,13 @@ blockquote {
   margin: 0;
 }
 
-.product-page {
+.product-page,
+.info-page {
   background: #080c12;
 }
 
-.product-hero {
+.product-hero,
+.info-hero {
   min-height: 42rem;
   border-bottom: 1px solid var(--line);
   background-color: #0a0e14;
@@ -973,26 +975,30 @@ blockquote {
   text-transform: uppercase;
 }
 
-.product-hero h1 {
+.product-hero h1,
+.info-hero h1 {
   margin-bottom: 1.8rem;
   font-size: clamp(4.4rem, 7vw, 7.2rem);
 }
 
-.product-hero h2 {
+.product-hero h2,
+.info-hero h2 {
   margin-bottom: 1.7rem;
   max-width: 48rem;
   font-size: clamp(2.15rem, 3.3vw, 3.3rem);
   line-height: 0.98;
 }
 
-.product-hero p:not(.product-kicker) {
+.product-hero p:not(.product-kicker),
+.info-hero p:not(.product-kicker) {
   max-width: 52rem;
   color: #bdb5ad;
   font-size: clamp(1.15rem, 1.55vw, 1.55rem);
   line-height: 1.45;
 }
 
-.product-hero .actions {
+.product-hero .actions,
+.info-hero .actions {
   margin: 3.2rem 0 0;
 }
 
@@ -1373,7 +1379,8 @@ blockquote {
     padding: 4rem 0;
   }
 
-  .product-hero {
+  .product-hero,
+  .info-hero {
     min-height: auto;
   }
 
@@ -1381,15 +1388,18 @@ blockquote {
     padding: 3rem 0;
   }
 
-  .product-hero h1 {
+  .product-hero h1,
+  .info-hero h1 {
     font-size: clamp(3.8rem, 17vw, 5.4rem);
   }
 
-  .product-hero h2 {
+  .product-hero h2,
+  .info-hero h2 {
     font-size: clamp(2rem, 9.5vw, 3rem);
   }
 
   .product-hero p:not(.product-kicker),
+  .info-hero p:not(.product-kicker),
   .talk-panel > div > p:not(.section-code) {
     font-size: 1.08rem;
   }
@@ -1625,7 +1635,8 @@ blockquote {
     font-size: clamp(2.75rem, 15vw, 3.4rem);
   }
 
-  .product-hero h1 {
+  .product-hero h1,
+  .info-hero h1 {
     font-size: clamp(3rem, 16vw, 4.2rem);
   }
 
