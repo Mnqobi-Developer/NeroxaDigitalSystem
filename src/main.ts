@@ -65,7 +65,7 @@ const products: Product[] = [
     name: "NexPay",
     displayName: "Payment System",
     copy:
-      "NexPay is the payments engine behind every Nexora product - accept cards, EFT, SnapScan, Capitec Pay and instant clearing, all settled the same day in ZAR with no FX surprises.",
+      "Accept cards, EFT, SnapScan, Capitec Pay and instant clearing in one payment setup, all settled the same day in ZAR with no FX surprises.",
     className: "payments",
   },
   {
@@ -105,7 +105,7 @@ const products: Product[] = [
     name: "NexAds",
     displayName: "Digital Ads",
     copy:
-      "Stop guessing which Meta ad worked. NexAds plugs straight into your storefront and CRM so you can see what's actually driving revenue - and run smarter campaigns next month.",
+      "Stop guessing which Meta ad worked. Connect your ads to your storefront and customer records so you can see what's actually driving revenue - and run smarter campaigns next month.",
     className: "growth",
   },
 ];
@@ -121,7 +121,7 @@ const productPages: Record<string, ProductPage> = {
     features: [
       { title: "Mobile storefront", copy: "Launch fast product pages, collections and checkout flows that feel native on low-bandwidth mobile connections." },
       { title: "Inventory & fulfilment", copy: "Track stock, pickup, courier delivery and local shipping rules from one operating screen." },
-      { title: "Payments included", copy: "Cards, EFT, SnapScan and Capitec Pay connect directly through NexPay without extra vendor sprawl." },
+      { title: "Payments included", copy: "Cards, EFT, SnapScan and Capitec Pay connect directly without extra vendor sprawl." },
       { title: "Customer records", copy: "Keep orders, returns, contact history and repeat-purchase signals tied to one customer profile." },
     ],
     capabilities: ["Product catalogue management", "Courier and pickup rules", "Discounts and bundles", "Abandoned cart recovery", "WhatsApp order notifications"],
@@ -142,7 +142,7 @@ const productPages: Record<string, ProductPage> = {
       { title: "Local payment methods", copy: "Accept cards, EFT, SnapScan, PayFast, Ozow and Capitec Pay from one integration." },
       { title: "Same-day reconciliation", copy: "Match payments back to orders, invoices and customer records without spreadsheet cleanup." },
       { title: "Receipts & audit trails", copy: "Generate proof of payment, refunds and settlement records with POPIA-conscious logging." },
-      { title: "Platform-native checkout", copy: "Use NexPay inside NexShop, NexChurch, NexSport and custom business workflows." },
+      { title: "Platform-native checkout", copy: "Use one payment setup inside online stores, church systems, sports platforms and custom business workflows." },
     ],
     capabilities: ["Card and EFT acceptance", "Instant payment links", "Refund tracking", "Settlement reporting", "Fraud and duplicate checks"],
     useCases: [
@@ -271,7 +271,7 @@ const industries: Industry[] = [
 ];
 
 const footerColumns = [
-  ["Platforms", "NexShop", "NexPay", "NexChurch", "NexSport", "NexHost", "NexAds"],
+  ["Platforms", "Online Store", "Payment System", "Church Platform", "Sports Platform", "Web Hosting", "Digital Ads"],
   ["Industries", "Retail", "Faith", "Sport", "Tourism", "Entertainment", "Education"],
   ["Company", "About", "Careers", "Press", "Investors", "Trust & security", "Contact"],
   ["Resources", "Documentation", "API reference", "Status", "Changelog", "Blog", "Partners"],
@@ -448,7 +448,7 @@ function slugify(value: string) {
 function footerHref(section: string, label: string) {
   const slug = slugify(label);
   if (section === "Platforms") {
-    const product = products.find((item) => item.name.toLowerCase() === label.toLowerCase());
+    const product = products.find((item) => [item.name, item.displayName].some((value) => value.toLowerCase() === label.toLowerCase()));
     return product ? `/platform/${product.slug}` : "/";
   }
   if (section === "Industries") return `/industry/${slug}`;
@@ -620,12 +620,12 @@ function renderProductPage(product: Product, details: ProductPage) {
         <div class="section-inner product-hero-inner">
           <a class="back-link" href="/#platforms"><span>&larr;</span> Back to Nexora</a>
           <p class="product-kicker"><span>${product.eyebrow}</span>${product.metric}</p>
-          <h1>${product.name}</h1>
+          <h1>${product.displayName}</h1>
           <h2>${details.tagline}</h2>
           <p>${product.copy}</p>
           <div class="actions">
-            <a class="button button-primary" href="mailto:${contactEmail}?subject=${encodeURIComponent(product.name + " consultation")}">Book a consultation <span>-></span></a>
-            <a class="button button-secondary" href="mailto:${contactEmail}?subject=${encodeURIComponent("Talk to " + product.name)}">Talk to ${product.name}</a>
+            <a class="button button-primary" href="mailto:${contactEmail}?subject=${encodeURIComponent(product.displayName + " consultation")}">Book a consultation <span>-></span></a>
+            <a class="button button-secondary" href="mailto:${contactEmail}?subject=${encodeURIComponent("Talk to " + product.displayName)}">Talk to us</a>
           </div>
         </div>
       </section>
@@ -636,7 +636,7 @@ function renderProductPage(product: Product, details: ProductPage) {
       <section class="product-features">
         <div class="section-inner">
           <p class="section-code">// Features</p>
-          <h2>What's in <em>${product.name}.</em></h2>
+          <h2>What's included in <em>${product.displayName}.</em></h2>
           <div class="feature-grid">
             ${details.features
               .map(
@@ -664,7 +664,7 @@ function renderProductPage(product: Product, details: ProductPage) {
           </div>
           <div>
             <p class="section-code">// Use cases</p>
-            <h2>Who runs on ${product.name}.</h2>
+            <h2>Who uses ${product.displayName}.</h2>
             <div class="use-case-list">
               ${details.useCases.map((item) => `<article><h3>${item.title}</h3><p>${item.copy}</p></article>`).join("")}
             </div>
@@ -676,11 +676,11 @@ function renderProductPage(product: Product, details: ProductPage) {
         <div class="section-inner talk-panel">
           <div>
             <p class="section-code">// Let's talk</p>
-            <h2>Every ${product.name} build starts with a <em>conversation.</em></h2>
-            <p>No off-the-shelf packages. Book a free 30-minute consultation and we'll scope what ${product.name} should look like for your business - features, timelines and a clear quote in ZAR.</p>
+            <h2>Every ${product.displayName} build starts with a <em>conversation.</em></h2>
+            <p>No off-the-shelf packages. Book a free 30-minute consultation and we'll scope what ${product.displayName} should look like for your business - features, timelines and a clear quote in ZAR.</p>
           </div>
           <div class="talk-actions">
-            <a class="button button-primary" href="mailto:${contactEmail}?subject=${encodeURIComponent(product.name + " consultation")}">Book a consultation <span>-></span></a>
+            <a class="button button-primary" href="mailto:${contactEmail}?subject=${encodeURIComponent(product.displayName + " consultation")}">Book a consultation <span>-></span></a>
             <a class="button button-secondary" href="https://wa.me/" target="_blank" rel="noreferrer">Chat on WhatsApp</a>
             <p>Typically reply within one business day.</p>
           </div>
@@ -697,7 +697,7 @@ function renderProductPage(product: Product, details: ProductPage) {
                 (item) => `
                   <a href="/platform/${item.slug}">
                     <span>${item.eyebrow}</span>
-                    <strong>${item.name}</strong>
+                    <strong>${item.displayName}</strong>
                     <small>Explore -></small>
                   </a>
                 `,
@@ -724,7 +724,7 @@ function renderProductPage(product: Product, details: ProductPage) {
           ${contactForm("NexPlatforms")}
           <div class="trusted">
             <span>Trusted by leaders across the republic</span>
-            <p>NexShop <b>NexPay</b> NexHost <b>NexChurch</b> NexSport</p>
+            <p>Online Store <b>Payment System</b> Web Hosting <b>Church Platform</b> Sports Platform</p>
           </div>
         </div>
       </section>
@@ -872,8 +872,8 @@ function render() {
     const details = product ? productPages[product.slug] : undefined;
     if (product && details) {
       setPageSeo(
-        `${product.name} | ${details.tagline} | Nexora Digital Systems`,
-        `${product.name} by Nexora Digital Systems: ${details.tagline} ${product.copy}`,
+        `${product.displayName} | ${details.tagline} | Nexora Digital Systems`,
+        `${product.displayName} by Nexora Digital Systems: ${details.tagline} ${product.copy}`,
         `${siteUrl}/platform/${product.slug}`,
       );
       app.innerHTML = renderProductPage(product, details);
@@ -1049,7 +1049,7 @@ function render() {
           ${contactForm()}
           <div class="trusted">
             <span>Trusted by leaders across the republic</span>
-            <p>NexShop <b>NexPay</b> NexHost <b>NexChurch</b> NexSport</p>
+            <p>Online Store <b>Payment System</b> Web Hosting <b>Church Platform</b> Sports Platform</p>
           </div>
         </div>
       </section>
