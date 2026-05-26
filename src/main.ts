@@ -35,6 +35,9 @@ type InfoPage = {
 const navItems = ["Platforms", "Infrastructure", "Industries", "Customers", "Company"];
 const siteUrl = "https://nexora.africa";
 const contactEmail = "info@nexoradigitalsystems.co.za";
+const supportEmail = "support@nexoradigitalsystems.co.za";
+const contactPhone = "+27 60 501 5448";
+const whatsappLink = "https://wa.me/27605015448";
 const defaultSeo = {
   title: "Nexora Digital Systems | Website, Ecommerce, Payments & Digital Infrastructure",
   description:
@@ -342,8 +345,9 @@ const staticPages: Record<string, InfoPage> = {
   "/company/contact": {
     title: "Contact Nexora",
     eyebrow: "Company",
-    intro: "Tell us what service you need and the right Nexora specialist will pick up the conversation.",
-    points: ["Website and ecommerce builds", "Payments, hosting and infrastructure", "Platform strategy, support and growth systems"],
+    intro:
+      "Small businesses deserve serious digital infrastructure. Tell us where you are now, and we will help you shape a practical path toward better systems, stronger visibility and real growth.",
+    points: ["Every small business gets listened to properly", "We translate your goals into a clear digital plan", "The right website, app, hosting or platform can help your business grow with confidence"],
     includeContactForm: true,
   },
   "/resources/documentation": {
@@ -504,6 +508,44 @@ function contactForm(selectedService = "") {
         <button class="button button-secondary" type="submit" data-channel="whatsapp">Send by WhatsApp</button>
       </div>
     </form>
+  `;
+}
+
+function contactChannels() {
+  return `
+    <section class="contact-channels">
+      <div class="section-inner contact-channel-inner">
+        <div>
+          <p class="section-code">// Direct contact</p>
+          <h2>We are ready to hear what you are building.</h2>
+          <p>
+            Whether you are starting from a simple idea, replacing an old website, or trying to organise the systems behind your business, Nexora will meet you with a clear conversation and practical next steps.
+          </p>
+        </div>
+        <div class="contact-card-grid">
+          <a class="contact-card" href="mailto:${contactEmail}">
+            <span>General enquiries</span>
+            <strong>${contactEmail}</strong>
+            <small>For new projects, quotes, consultations and business questions.</small>
+          </a>
+          <a class="contact-card" href="mailto:${supportEmail}">
+            <span>Support</span>
+            <strong>${supportEmail}</strong>
+            <small>For help with an existing Nexora website, platform or hosting service.</small>
+          </a>
+          <a class="contact-card" href="${whatsappLink}" target="_blank" rel="noreferrer">
+            <span>WhatsApp</span>
+            <strong>${contactPhone}</strong>
+            <small>Send us a quick message and we will guide you from there.</small>
+          </a>
+          <a class="contact-card" href="tel:+27605015448">
+            <span>Calls</span>
+            <strong>${contactPhone}</strong>
+            <small>Call when you want to talk through your business needs directly.</small>
+          </a>
+        </div>
+      </div>
+    </section>
   `;
 }
 
@@ -697,11 +739,12 @@ function renderInfoPage(page: InfoPage) {
           <h1>${page.title}</h1>
           <h2>${page.intro}</h2>
           <div class="actions">
-            <a class="button button-primary" href="/#contact">Talk to sales <span>-></span></a>
-            <a class="button button-secondary" href="/#platforms">Explore platforms</a>
+            <a class="button button-primary" href="${page.includeContactForm ? `mailto:${contactEmail}` : "/#contact"}">Talk to sales <span>-></span></a>
+            <a class="button button-secondary" href="${page.includeContactForm ? whatsappLink : "/#platforms"}"${page.includeContactForm ? ' target="_blank" rel="noreferrer"' : ""}>${page.includeContactForm ? "Message on WhatsApp" : "Explore platforms"}</a>
           </div>
         </div>
       </section>
+      ${page.includeContactForm ? contactChannels() : ""}
       <section class="product-features">
         <div class="section-inner">
           <p class="section-code">// Overview</p>
@@ -849,6 +892,7 @@ function render() {
       app.innerHTML = renderInfoPage(page);
       setupMobileMenu();
       setupInternalLinks();
+      setupContactForms();
       window.scrollTo({ top: 0, behavior: "auto" });
       return;
     }
@@ -865,6 +909,7 @@ function render() {
     app.innerHTML = renderInfoPage(staticPage);
     setupMobileMenu();
     setupInternalLinks();
+    setupContactForms();
     window.scrollTo({ top: 0, behavior: "auto" });
     return;
   }
