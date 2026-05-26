@@ -507,7 +507,6 @@ function contactForm(selectedService = "") {
         <button class="button button-primary" type="submit" data-channel="email">Send by email <span>-></span></button>
         <button class="button button-secondary" type="submit" data-channel="whatsapp">Send by WhatsApp</button>
       </div>
-      <p class="form-note">No backend required: your device opens a prefilled email or WhatsApp message before sending.</p>
     </form>
   `;
 }
