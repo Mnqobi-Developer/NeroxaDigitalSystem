@@ -34,6 +34,7 @@ type InfoPage = {
 
 const navItems = ["Platforms", "Infrastructure", "Industries", "Customers", "Company"];
 const siteUrl = "https://nexora.africa";
+const contactEmail = "info@nexoradigitalsystems.co.za";
 const defaultSeo = {
   title: "Nexora Digital Systems | Website, Ecommerce, Payments & Digital Infrastructure",
   description:
@@ -581,8 +582,8 @@ function renderProductPage(product: Product, details: ProductPage) {
           <h2>${details.tagline}</h2>
           <p>${product.copy}</p>
           <div class="actions">
-            <a class="button button-primary" href="mailto:sales@nexora.africa?subject=${encodeURIComponent(product.name + " consultation")}">Book a consultation <span>-></span></a>
-            <a class="button button-secondary" href="mailto:strategy@nexora.africa?subject=${encodeURIComponent("Talk to " + product.name)}">Talk to ${product.name}</a>
+            <a class="button button-primary" href="mailto:${contactEmail}?subject=${encodeURIComponent(product.name + " consultation")}">Book a consultation <span>-></span></a>
+            <a class="button button-secondary" href="mailto:${contactEmail}?subject=${encodeURIComponent("Talk to " + product.name)}">Talk to ${product.name}</a>
           </div>
         </div>
       </section>
@@ -637,7 +638,7 @@ function renderProductPage(product: Product, details: ProductPage) {
             <p>No off-the-shelf packages. Book a free 30-minute consultation and we'll scope what ${product.name} should look like for your business - features, timelines and a clear quote in ZAR.</p>
           </div>
           <div class="talk-actions">
-            <a class="button button-primary" href="mailto:sales@nexora.africa?subject=${encodeURIComponent(product.name + " consultation")}">Book a consultation <span>-></span></a>
+            <a class="button button-primary" href="mailto:${contactEmail}?subject=${encodeURIComponent(product.name + " consultation")}">Book a consultation <span>-></span></a>
             <a class="button button-secondary" href="https://wa.me/" target="_blank" rel="noreferrer">Chat on WhatsApp</a>
             <p>Typically reply within one business day.</p>
           </div>
@@ -675,8 +676,8 @@ function renderProductPage(product: Product, details: ProductPage) {
             <article><h3>Sovereign security</h3><p>Local compliance & uptime</p></article>
           </div>
           <div class="actions actions-center">
-            <a class="button button-primary" href="mailto:sales@nexora.africa">Book a consultation</a>
-            <a class="button button-secondary" href="mailto:strategy@nexora.africa">Talk to a strategist</a>
+            <a class="button button-primary" href="mailto:${contactEmail}">Book a consultation</a>
+            <a class="button button-secondary" href="mailto:${contactEmail}">Talk to a strategist</a>
           </div>
           ${contactForm(product.name)}
           <div class="trusted">
@@ -776,7 +777,7 @@ function setupContactForms() {
       }
 
       const subject = `Nexora enquiry: ${service}`;
-      window.location.href = `mailto:sales@nexora.africa?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      window.location.href = `mailto:${contactEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
     });
   });
 }
@@ -998,8 +999,8 @@ function render() {
             <article><h3>Sovereign security</h3><p>Local compliance & uptime</p></article>
           </div>
           <div class="actions actions-center">
-            <a class="button button-primary" href="mailto:sales@nexora.africa">Book a consultation</a>
-            <a class="button button-secondary" href="mailto:strategy@nexora.africa">Talk to a strategist</a>
+            <a class="button button-primary" href="mailto:${contactEmail}">Book a consultation</a>
+            <a class="button button-secondary" href="mailto:${contactEmail}">Talk to a strategist</a>
           </div>
           ${contactForm()}
           <div class="trusted">
