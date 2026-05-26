@@ -5,6 +5,7 @@ type Product = {
   eyebrow: string;
   metric: string;
   name: string;
+  displayName: string;
   copy: string;
   className: string;
 };
@@ -52,6 +53,7 @@ const products: Product[] = [
     eyebrow: "Commerce",
     metric: "70 merchants",
     name: "NexShop",
+    displayName: "Online Store",
     copy:
       "Launch a fast, mobile-first store with checkout, inventory and shipping wired to the rails your customers already use - SnapScan, Capitec Pay and local couriers, out of the box.",
     className: "commerce",
@@ -61,6 +63,7 @@ const products: Product[] = [
     eyebrow: "Payments",
     metric: "R1.5M / year",
     name: "NexPay",
+    displayName: "Payment System",
     copy:
       "NexPay is the payments engine behind every Nexora product - accept cards, EFT, SnapScan, Capitec Pay and instant clearing, all settled the same day in ZAR with no FX surprises.",
     className: "payments",
@@ -70,6 +73,7 @@ const products: Product[] = [
     eyebrow: "Faith",
     metric: "47 churches",
     name: "NexChurch",
+    displayName: "Church Platform",
     copy:
       "Member directories, livestreaming, tithing and pastoral care in one place - built with pastors and admins from 47 South African churches, not borrowed from a US megachurch playbook.",
     className: "faith",
@@ -79,6 +83,7 @@ const products: Product[] = [
     eyebrow: "Sport",
     metric: "Local leagues",
     name: "NexSport",
+    displayName: "Sports Platform",
     copy:
       "Fixtures, registrations, ticketing and statistics for the clubs, schools and community leagues that make up grassroots South African sport.",
     className: "sport",
@@ -88,6 +93,7 @@ const products: Product[] = [
     eyebrow: "Hosting",
     metric: "99.9% uptime",
     name: "NexHost",
+    displayName: "Web Hosting",
     copy:
       "The hosting layer underneath every Nexora product - and available on its own. Fast in Johannesburg, fast in Mthatha, resilient when the grid blinks.",
     className: "hosting",
@@ -97,6 +103,7 @@ const products: Product[] = [
     eyebrow: "Growth",
     metric: "3.2x median ROAS",
     name: "NexAds",
+    displayName: "Digital Ads",
     copy:
       "Stop guessing which Meta ad worked. NexAds plugs straight into your storefront and CRM so you can see what's actually driving revenue - and run smarter campaigns next month.",
     className: "growth",
@@ -557,10 +564,10 @@ function productCard(product: Product) {
         <span>${product.metric}</span>
       </div>
       <div class="product-body">
-        <h3>${product.name}</h3>
+        <h3>${product.displayName}</h3>
         <p>${product.copy}</p>
       </div>
-      <a href="/platform/${product.slug}">Explore ${product.name} <span>-></span></a>
+      <a href="/platform/${product.slug}">Explore ${product.displayName} <span>-></span></a>
     </article>
   `;
 }
