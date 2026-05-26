@@ -403,14 +403,12 @@ const staticPages: Record<string, InfoPage> = {
 };
 
 const serviceOptions = [
-  "NexShop - commerce website",
-  "NexPay - payments",
-  "NexChurch - church platform",
-  "NexSport - sport platform",
-  "NexHost - hosting",
-  "NexAds - growth marketing",
-  "Full Nexora stack",
-  "Not sure yet",
+  "NexPlatforms",
+  "Digital Solution for business",
+  "Website",
+  "Mobile App",
+  "Web Hosting",
+  "Other...describe below",
 ];
 
 function setMeta(selector: string, value: string) {
@@ -493,9 +491,7 @@ function contactForm(selectedService = "") {
           <span>Service needed</span>
           <select name="service" required>
             <option value="" ${selectedService ? "" : "selected"} disabled>Select a service</option>
-            ${serviceOptions
-              .map((option) => `<option value="${option}" ${selectedService && option.startsWith(selectedService) ? "selected" : ""}>${option}</option>`)
-              .join("")}
+            ${serviceOptions.map((option) => `<option value="${option}" ${selectedService === option ? "selected" : ""}>${option}</option>`).join("")}
           </select>
         </label>
         <label class="form-full">
@@ -678,7 +674,7 @@ function renderProductPage(product: Product, details: ProductPage) {
             <a class="button button-primary" href="mailto:${contactEmail}">Book a consultation</a>
             <a class="button button-secondary" href="mailto:${contactEmail}">Talk to a strategist</a>
           </div>
-          ${contactForm(product.name)}
+          ${contactForm("NexPlatforms")}
           <div class="trusted">
             <span>Trusted by leaders across the republic</span>
             <p>NexShop <b>NexPay</b> NexHost <b>NexChurch</b> NexSport</p>
