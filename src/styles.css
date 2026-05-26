@@ -25,11 +25,13 @@
 html {
   scroll-behavior: smooth;
   background: var(--bg);
+  overflow-x: hidden;
 }
 
 body {
   margin: 0;
   min-width: 0;
+  overflow-x: hidden;
   background:
     radial-gradient(circle at 4% 26%, rgba(96, 41, 28, 0.6), transparent 29rem),
     radial-gradient(circle at 88% 65%, rgba(19, 74, 65, 0.42), transparent 33rem),
@@ -42,6 +44,7 @@ body {
 a {
   color: inherit;
   text-decoration: none;
+  overflow-wrap: anywhere;
 }
 
 img {
@@ -62,6 +65,7 @@ img {
     linear-gradient(90deg, rgba(7, 12, 18, 0.9), rgba(8, 10, 16, 0.82) 52%, rgba(8, 10, 16, 0.9)),
     rgba(8, 10, 16, 0.78);
   backdrop-filter: blur(20px);
+  min-width: 0;
 }
 
 .brand {
@@ -89,6 +93,7 @@ img {
   display: flex;
   justify-content: center;
   gap: clamp(1.3rem, 3vw, 3rem);
+  min-width: 0;
   color: #aaa49d;
   font-size: 1.05rem;
   font-weight: 600;
@@ -114,6 +119,7 @@ img {
   font-size: 1rem;
   font-weight: 800;
   white-space: nowrap;
+  text-align: center;
 }
 
 .button-primary {
@@ -135,8 +141,9 @@ img {
 }
 
 .section-inner {
-  width: min(100% - 2rem, 1662px);
+  width: min(100% - clamp(1.5rem, 5vw, 7rem), 1662px);
   margin: 0 auto;
+  min-width: 0;
 }
 
 .section-grid {
@@ -182,6 +189,7 @@ img {
   display: flex;
   align-items: center;
   gap: 1rem;
+  flex-wrap: wrap;
   margin: 0 0 2.35rem;
   color: #f2dcc4;
   font-family: var(--mono);
@@ -239,6 +247,7 @@ em {
 
 .actions {
   display: flex;
+  flex-wrap: wrap;
   gap: 1rem;
   margin-bottom: 5.4rem;
 }
@@ -378,6 +387,7 @@ dd {
 .card-meta {
   display: flex;
   justify-content: space-between;
+  flex-wrap: wrap;
   gap: 1rem;
   color: #f8dfc9;
   font-family: var(--mono);
@@ -419,6 +429,11 @@ dd {
   grid-template-columns: 1fr minmax(28rem, 49rem);
   gap: clamp(3rem, 6vw, 7rem);
   align-items: center;
+  min-width: 0;
+}
+
+.split > * {
+  min-width: 0;
 }
 
 .resilience-list {
@@ -509,6 +524,15 @@ code,
   font-size: 0.92rem;
 }
 
+.solution-panel .region-row {
+  grid-template-columns: minmax(8rem, 0.55fr) 1fr;
+}
+
+.region-row strong,
+.region-row span {
+  min-width: 0;
+}
+
 .region-row span {
   color: var(--green);
   font-weight: 700;
@@ -526,6 +550,7 @@ code,
 
 .uptime {
   display: flex;
+  gap: 1rem;
   justify-content: space-between;
   align-items: end;
   margin-top: 2.1rem;
@@ -882,7 +907,7 @@ blockquote {
 
 .footer-grid {
   display: grid;
-  grid-template-columns: 1.7fr repeat(4, 1fr);
+  grid-template-columns: minmax(16rem, 1.7fr) repeat(4, minmax(8rem, 1fr));
   gap: clamp(2rem, 5vw, 5.5rem);
 }
 
@@ -919,6 +944,7 @@ blockquote {
   display: flex;
   justify-content: space-between;
   gap: 2rem;
+  flex-wrap: wrap;
   margin-top: 5rem;
   padding-top: 2rem;
   border-top: 1px solid var(--line);
@@ -927,6 +953,7 @@ blockquote {
 
 .legal p {
   display: flex;
+  flex-wrap: wrap;
   gap: 1.6rem;
   margin: 0;
 }
@@ -1262,7 +1289,7 @@ blockquote {
 
 @media (max-width: 1100px) {
   .site-header {
-    grid-template-columns: 13.5rem 1fr;
+    grid-template-columns: minmax(11rem, 13.5rem) minmax(0, 1fr);
     min-height: auto;
   }
 
@@ -1284,8 +1311,13 @@ blockquote {
   .footer-grid,
   .section-head,
   .product-two-col,
+  .contact-channel-inner,
   .talk-panel {
     grid-template-columns: 1fr 1fr;
+  }
+
+  .footer-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .suite-link-grid {
@@ -1342,6 +1374,7 @@ blockquote {
     padding: 0.95rem 0;
     border-bottom: 1px solid rgba(255, 255, 255, 0.07);
     font-size: 1rem;
+    line-height: 1.35;
   }
 
   .site-header nav a:last-child {
@@ -1392,7 +1425,7 @@ blockquote {
   }
 
   .brand img {
-    width: 10rem;
+    width: clamp(8.8rem, 34vw, 10rem);
   }
 
   h1,
@@ -1410,7 +1443,7 @@ blockquote {
   }
 
   .hero-inner {
-    padding-top: 2.1rem;
+    padding-top: 1.6rem;
     padding-bottom: 3rem;
   }
 
@@ -1485,6 +1518,10 @@ blockquote {
     grid-template-columns: 1fr;
   }
 
+  .stats {
+    width: 100%;
+  }
+
   .stats div,
   .product-stats div,
   .story-stats div,
@@ -1538,15 +1575,27 @@ blockquote {
     width: 100%;
     min-height: 3.25rem;
     padding-inline: 1rem;
+    white-space: normal;
   }
 
   .status-panel {
     padding: 1.2rem;
   }
 
+  .solution-panel .region-row,
   .region-row {
     grid-template-columns: 1fr;
     gap: 0.4rem;
+  }
+
+  .uptime {
+    align-items: start;
+    flex-direction: column;
+    letter-spacing: 0.18em;
+  }
+
+  .uptime strong {
+    font-size: 2.25rem;
   }
 
   .quote-block {
@@ -1556,7 +1605,7 @@ blockquote {
 
   .product-card,
   .industry-card {
-    min-height: 25rem;
+    min-height: 22rem;
     padding: 2rem 1.5rem;
   }
 
@@ -1571,6 +1620,7 @@ blockquote {
 
   .trusted p {
     flex-wrap: wrap;
+    row-gap: 0.7rem;
   }
 
   .footer-grid {
@@ -1587,7 +1637,7 @@ blockquote {
     width: 100%;
     max-width: 100%;
     margin-inline: 0;
-    padding-inline: 0.625rem;
+    padding-inline: 1rem;
   }
 
   .split > *,
@@ -1601,7 +1651,7 @@ blockquote {
 
   h1,
   h2 {
-    line-height: 0.95;
+    line-height: 0.98;
   }
 
   .hero-inner {
@@ -1611,6 +1661,10 @@ blockquote {
   .actions {
     gap: 0.75rem;
     margin-bottom: 3rem;
+  }
+
+  .hero .actions {
+    margin-bottom: 2rem;
   }
 
   .stats div,
@@ -1635,8 +1689,9 @@ blockquote {
   .product-features h2,
   .product-capabilities h2,
   .product-talk h2,
+  .contact-channels h2,
   .suite-links h2 {
-    font-size: clamp(2.85rem, 14vw, 4rem);
+    font-size: clamp(2.55rem, 12vw, 3.65rem);
   }
 
   .product-grid,
@@ -1648,7 +1703,7 @@ blockquote {
 
   .product-card h3,
   .industry-card h3 {
-    font-size: 2.35rem;
+    font-size: 2.15rem;
   }
 
   .product-card p {
@@ -1690,6 +1745,10 @@ blockquote {
   .suite-link-grid a {
     padding: 1.35rem 1.2rem;
   }
+
+  .footer-brand img {
+    width: 10rem;
+  }
 }
 
 @media (max-width: 380px) {
@@ -1699,20 +1758,30 @@ blockquote {
 
   h1,
   h2 {
-    font-size: clamp(2.75rem, 15vw, 3.4rem);
+    font-size: clamp(2.45rem, 13.5vw, 3.2rem);
   }
 
   .product-hero h1,
   .info-hero h1 {
-    font-size: clamp(3rem, 16vw, 4.2rem);
+    font-size: clamp(2.65rem, 14vw, 3.8rem);
   }
 
   .product-card,
   .industry-card {
-    min-height: 23rem;
+    min-height: 20rem;
   }
 
   .card-meta {
     flex-direction: column;
+  }
+
+  .section-inner {
+    padding-inline: 0.85rem;
+  }
+
+  .kicker,
+  .section-code {
+    font-size: 0.66rem;
+    letter-spacing: 0.16em;
   }
 }
