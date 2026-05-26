@@ -233,34 +233,32 @@ const productPages: Record<string, ProductPage> = {
   },
 };
 
-const resilience = [
+const solutionProcess = [
   {
-    title: "Edge resilience",
-    copy: "Multi-region failover with offline-first sync. Your storefront keeps selling when the grid blinks.",
+    title: "We start with a conversation",
+    copy: "We sit down with you to understand your business, your customers, your pain points and what growth should look like for you.",
   },
   {
-    title: "Local rails",
-    copy: "Native SnapScan, Ozow, PayFast, Capitec Pay and EFT. No middleware, no FX surprises.",
+    title: "We structure the right solution",
+    copy: "For many businesses that may mean a website, hosting and digital ads. For others it may be enterprise software, a mobile app, payments, automation or a complete digital system.",
   },
   {
-    title: "Compliance, included",
-    copy: "POPIA controls baked in - audit logs and consent flows on by default.",
+    title: "We connect software to marketing",
+    copy: "Your digital presence should not stop at looking good. We help connect the tools behind your business with the campaigns that bring people to it.",
   },
   {
-    title: "Human support",
-    copy: "Account managers in Johannesburg, Cape Town and Mbombela. Not a chatbot.",
+    title: "We build for where you are going",
+    copy: "The goal is not just to launch something online. It is to give your business a digital foundation that can grow as your operations grow.",
   },
 ];
 
-const regions = [
-  ["Johannesburg", "JNB1", "11ms"],
-  ["Cape Town", "CPT1", "18ms"],
-  ["Durban", "DUR1", "21ms"],
-  ["Mbombela", "MQP1", "24ms"],
-  ["Maseru", "MSU1", "27ms"],
-  ["Gaborone", "GBE1", "29ms"],
-  ["Mbabane", "MTS1", "31ms"],
-  ["Edge", "regional CDN", "-"],
+const solutionLayers = [
+  ["Website", "Your public home online"],
+  ["Hosting", "Fast, stable place for your site or app"],
+  ["Digital Ads", "Campaigns that bring the right people in"],
+  ["Mobile Apps", "Tools customers or teams can use anywhere"],
+  ["Enterprise Software", "Internal systems built around how you operate"],
+  ["Growth Support", "Ongoing improvements, reporting and advice"],
 ];
 
 const industries: Industry[] = [
@@ -950,8 +948,8 @@ function render() {
       <section id="platforms" class="platforms section-warm">
         <div class="section-inner">
           <p class="section-code">// 01 - The platform suite</p>
-          <h2>One stack. <em>Every layer</em> of your<br />business.</h2>
-          <p class="section-copy">Each Nexora product works on its own - but together, they replace the dozen vendors you don't want to manage.</p>
+          <h2>Everything your business needs to<br /><em>show up, sell and grow.</em></h2>
+          <p class="section-copy">From your website and online store to payments, hosting, customer systems and digital ads, Nexora brings the important parts of your business online into one clear, connected service.</p>
           <div class="product-grid">${products.map(productCard).join("")}</div>
         </div>
       </section>
@@ -959,11 +957,11 @@ function render() {
       <section id="infrastructure" class="infrastructure section-grid">
         <div class="section-inner split">
           <div>
-            <p class="section-code">// 02 - Infrastructure</p>
-            <h2>Built for the realities of <em>this</em><br />continent.</h2>
-            <p class="section-copy">Load-shedding aware. Mobile-first. Priced in local currency. Nexora was engineered against constraints international platforms have never had to think about.</p>
+            <p class="section-code">// 02 - How we work</p>
+            <h2>We listen first, then build the<br /><em>right digital solution.</em></h2>
+            <p class="section-copy">We begin with a consultation where you tell us what your business needs. From there, we shape a practical plan for your digital presence - from software to marketing.</p>
             <div class="resilience-list">
-              ${resilience
+              ${solutionProcess
                 .map(
                   (item) => `
                     <article>
@@ -975,25 +973,24 @@ function render() {
                 .join("")}
             </div>
           </div>
-          <aside class="status-panel" aria-label="Regional platform status">
+          <aside class="status-panel solution-panel" aria-label="Nexora solution structure">
             <div class="window-top">
               <span></span><span></span><span></span>
-              <code>status.nexora.africa</code>
+              <code>your solution plan</code>
             </div>
             <div class="region-list">
-              ${regions
+              ${solutionLayers
                 .map(
-                  ([city, code, latency]) => `
+                  ([title, description]) => `
                     <div class="region-row">
-                      <strong>${city} &middot; ${code}</strong>
-                      <span><i></i>operational</span>
-                      <code>${latency}</code>
+                      <strong>${title}</strong>
+                      <span><i></i>${description}</span>
                     </div>
                   `,
                 )
                 .join("")}
             </div>
-            <div class="uptime"><span>Last 90 days uptime</span><strong>99.994%</strong></div>
+            <div class="uptime"><span>From software to marketing</span><strong>One clear plan</strong></div>
           </aside>
         </div>
       </section>
