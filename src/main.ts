@@ -39,6 +39,7 @@ const contactEmail = "info@nexoradigitalsystems.co.za";
 const supportEmail = "support@nexoradigitalsystems.co.za";
 const contactPhone = "+27 60 501 5448";
 const whatsappLink = "https://wa.me/27605015448";
+const whatsappBusinessLink = "https://wa.me/27810723724";
 const defaultSeo = {
   title: "Nexora Digital Systems | Website, Ecommerce, Payments & Digital Infrastructure",
   description:
@@ -815,7 +816,7 @@ function setupContactForms() {
       ].join("\n");
 
       if (channel === "whatsapp") {
-        window.open(`https://wa.me/?text=${encodeURIComponent(body)}`, "_blank", "noopener,noreferrer");
+        window.open(`${whatsappBusinessLink}?text=${encodeURIComponent(body)}`, "_blank", "noopener,noreferrer");
         return;
       }
 
